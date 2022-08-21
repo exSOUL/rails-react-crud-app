@@ -1,43 +1,47 @@
-class Api::EventsController < ApplicationController
-  before_action :set_event, only: %i[show update destroy]
+# frozen_string_literal: true
 
-  def index
-    @event = Event.all
-    render json: @event
-  end
+module Api
+  class EventsController < ApplicationController
+    before_action :set_event, only: %i[show update destroy]
 
-  def show
-    render json: @event
-  end
-
-  def create
-    @event = Event.new(event_params)
-
-    if @event.save
-      render json: @event, status: :created
-    else
-      render json: @event.errors, status: :unprocessable_entity
+    def index
+      @event = Event.all
+      render json: @event
     end
-  end
 
-  def update
-    if @event.update(event_params)
-      render json: @event, status: :ok
-    else
-      render json: @event.errors, status: unprocessable_entity
+    def show
+      render json: @event
     end
+
+    def create
+      @event = Event.new(event_params)
+
+      if @event.save
+        render json: @event, status: :created
+      else
+        render json: @event.errors, status: :unprocessable_entity
+      end
+    end
+
+    def update
+      if @event.update(event_params)
+        render json: @event, status: :ok
+      else
+        render json: @event.errors, status: unprocessable_entity
+      end
+    end
+
+    def destroy
+      @event.destroy
+    end
+
+    private
+
+    def set_event
+      @event = Event.find(params[:id])
+    end
+
+    # def event_params
+    # end
   end
-
-  def destroy
-    @event.destroy
-  end
-
-  private
-
-  def set_event
-    @event = Event.find(params[:id])
-  end
-
-  # def event_params
-  # end
 end

@@ -1,11 +1,10 @@
-// babel.config.js
 module.exports = function (api) {
     const defaultConfigFunc = require('shakapacker/package/babel/preset.js')
     const resultConfig = defaultConfigFunc(api)
     const isDevelopmentEnv = api.env('development')
     const isProductionEnv = api.env('production')
     const isTestEnv = api.env('test')
-  
+
     const changesOnDefault = {
       presets: [
         [
@@ -25,9 +24,9 @@ module.exports = function (api) {
         process.env.WEBPACK_SERVE && 'react-refresh/babel'
       ].filter(Boolean),
     }
-  
+
     resultConfig.presets = [...resultConfig.presets, ...changesOnDefault.presets]
     resultConfig.plugins = [...resultConfig.plugins, ...changesOnDefault.plugins ]
-  
+
     return resultConfig
   }

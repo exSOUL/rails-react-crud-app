@@ -1,4 +1,3 @@
-// app/javascript/components/App.js
 import React from 'react';
 import Editor from './Editor';
 
